@@ -1,10 +1,8 @@
 # Viatcheslav Kagan 	311763213
 # Liad Khamdadash		313299877
 
-# -*- coding: utf8 -*-
-
-# Initial permut matrix for the datas
-PI = [58, 50, 42, 34, 26, 18, 10, 2,
+# Initial permutation matrix for the data
+IP = [58, 50, 42, 34, 26, 18, 10, 2,
       60, 52, 44, 36, 28, 20, 12, 4,
       62, 54, 46, 38, 30, 22, 14, 6,
       64, 56, 48, 40, 32, 24, 16, 8,
@@ -13,8 +11,8 @@ PI = [58, 50, 42, 34, 26, 18, 10, 2,
       61, 53, 45, 37, 29, 21, 13, 5,
       63, 55, 47, 39, 31, 23, 15, 7]
 
-# Initial permut made on the key
-CP_1 = [57, 49, 41, 33, 25, 17, 9,
+# Initial permutation made on the key
+PC_1 = [57, 49, 41, 33, 25, 17, 9,
         1, 58, 50, 42, 34, 26, 18,
         10, 2, 59, 51, 43, 35, 27,
         19, 11, 3, 60, 52, 44, 36,
@@ -23,15 +21,15 @@ CP_1 = [57, 49, 41, 33, 25, 17, 9,
         14, 6, 61, 53, 45, 37, 29,
         21, 13, 5, 28, 20, 12, 4]
 
-# Permut applied on shifted key to get Ki+1
-CP_2 = [14, 17, 11, 24, 1, 5, 3, 28,
+# Permutation applied on shifted key to get Ki+1
+PC_2 = [14, 17, 11, 24, 1, 5, 3, 28,
         15, 6, 21, 10, 23, 19, 12, 4,
         26, 8, 16, 7, 27, 20, 13, 2,
         41, 52, 31, 37, 47, 55, 30, 40,
         51, 45, 33, 48, 44, 49, 39, 56,
         34, 53, 46, 42, 50, 36, 29, 32]
 
-# Expand matrix to get a 48bits matrix of datas to apply the xor with Ki
+# Expand matrix to get a 48bits matrix of data to apply the xor with Ki
 E = [32, 1, 2, 3, 4, 5,
      4, 5, 6, 7, 8, 9,
      8, 9, 10, 11, 12, 13,
@@ -41,7 +39,7 @@ E = [32, 1, 2, 3, 4, 5,
      24, 25, 26, 27, 28, 29,
      28, 29, 30, 31, 32, 1]
 
-# SBOX
+# S_BOX
 S_BOX = [
 
     [[14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7],
@@ -93,13 +91,13 @@ S_BOX = [
      ]
 ]
 
-# Permut made after each SBox substitution for each round
+# Permutation made after each S_Box substitution for each round
 P = [16, 7, 20, 21, 29, 12, 28, 17,
      1, 15, 23, 26, 5, 18, 31, 10,
      2, 8, 24, 14, 32, 27, 3, 9,
      19, 13, 30, 6, 22, 11, 4, 25]
 
-# Final permut for datas after the 16 rounds
+# Final permutation for data after the 16 rounds
 PI_1 = [40, 8, 48, 16, 56, 24, 64, 32,
         39, 7, 47, 15, 55, 23, 63, 31,
         38, 6, 46, 14, 54, 22, 62, 30,
@@ -127,12 +125,12 @@ def bit_array_to_string(array):  # Recreate the string from the bit array
 
 
 def binvalue(val, bitsize):  # Return the binary value as a string of the given size
-    binval = bin(val)[2:] if isinstance(val, int) else bin(ord(val))[2:]
-    if len(binval) > bitsize:
-        raise "binary value larger than the expected size"
-    while len(binval) < bitsize:
-        binval = "0" + binval  # Add as many 0 as needed to get the wanted size
-    return binval
+    bin_val = bin(val)[2:] if isinstance(val, int) else bin(ord(val))[2:]
+    if len(bin_val) > bitsize:
+        raise Exception("binary value larger than the expected size")
+    while len(bin_val) < bitsize:
+        bin_val = "0" + bin_val  # Add as many 0 as needed to get the wanted size
+    return bin_val
 
 
 def nsplit(s, n):  # Split a list into sublists of size "n"
@@ -151,7 +149,7 @@ class des():
 
     def run(self, key, text, action=ENCRYPT, padding=False):
         if len(key) < 8:
-            raise "Key Should be 8 bytes long"
+            raise Exception("Key Should be 8 bytes long")
         elif len(key) > 8:
             key = key[:8]  # If key size is above 8bytes, cut to be 8bytes long
 
@@ -161,14 +159,14 @@ class des():
         if padding and action == ENCRYPT:
             self.addPadding()
         elif len(self.text) % 8 != 0:  # If not padding specified data size must be multiple of 8 bytes
-            raise "Data size should be multiple of 8"
+            raise Exception("Data size should be multiple of 8")
 
         self.generatekeys()  # Generate all the keys
         text_blocks = nsplit(self.text, 8)  # Split the text in blocks of 8 bytes so 64 bits
         result = list()
         for block in text_blocks:  # Loop over all the blocks of data
             block = string_to_bit_array(block)  # Convert the block in bit array
-            block = self.permut(block, PI)  # Apply the initial permutation
+            block = self.permut(block, IP)  # Apply the initial permutation
             g, d = nsplit(block, 32)  # g(LEFT), d(RIGHT)
             tmp = None
             for i in range(16):  # Do the 16 rounds
@@ -189,22 +187,22 @@ class des():
         else:
             return final_res  # Return the final string of data ciphered/deciphered
 
-    def substitute(self, d_e):  # Substitute bytes using SBOX
-        subblocks = nsplit(d_e, 6)  # Split bit array into sublist of 6 bits
+    def substitute(self, d_e):  # Substitute bytes using S_BOX
+        sub_blocks = nsplit(d_e, 6)  # Split bit array into sublist of 6 bits
         result = list()
-        for i in range(len(subblocks)):  # For all the sublists
-            block = subblocks[i]
+        for i in range(len(sub_blocks)):  # For all the subLists
+            block = sub_blocks[i]
             row = int(str(block[0]) + str(block[5]), 2)  # Get the row with the first and last bit
             column = int(''.join([str(x) for x in block[1:][:-1]]), 2)  # Column is the 2,3,4,5th bits
-            val = S_BOX[i][row][column]  # Take the value in the SBOX appropriated for the round (i)
+            val = S_BOX[i][row][column]  # Take the value in the S_BOX appropriated for the round (i)
             bin = binvalue(val, 4)  # Convert the value to binary
             result += [int(x) for x in bin]  # And append it to the resulting list
         return result
 
-    def permut(self, block, table):  # Permut the given block using the given table (so generic method)
+    def permut(self, block, table):  # Permutation the given block using the given table (so generic method)
         return [block[x - 1] for x in table]
 
-    def expand(self, block, table):  # Do the exact same thing than permut but for more clarity has been renamed
+    def expand(self, block, table):  # Do the exact same thing than Permutation but for more clarity has been renamed
         return [block[x - 1] for x in table]
 
     def xor(self, t1, t2):  # Apply a xor and return the resulting list
@@ -213,17 +211,17 @@ class des():
     def generatekeys(self):  # Algorithm that generates all the keys
         self.keys = []
         key = string_to_bit_array(self.password)
-        key = self.permut(key, CP_1)  # Apply the initial permut on the key
+        key = self.permut(key, PC_1)  # Apply the initial Permutation on the key
         g, d = nsplit(key, 28)  # Split it in to (g->LEFT),(d->RIGHT)
         for i in range(16):  # Apply the 16 rounds
             g, d = self.shift(g, d, SHIFT[i])  # Apply the shift associated with the round (not always 1)
             tmp = g + d  # Merge them
-            self.keys.append(self.permut(tmp, CP_2))  # Apply the permut to get the Ki
+            self.keys.append(self.permut(tmp, PC_2))  # Apply the Permutation to get the Ki
 
     def shift(self, g, d, n):  # Shift a list of the given value
         return g[n:] + g[:n], d[n:] + d[:n]
 
-    def addPadding(self):  # Add padding to the datas using PKCS5 spec.
+    def addPadding(self):  # Add padding to the data using PKCS5 spec.
         pad_len = 8 - (len(self.text) % 8)
         self.text += pad_len * chr(pad_len)
 
