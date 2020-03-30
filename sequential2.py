@@ -141,7 +141,7 @@ ENCRYPT = 1
 DECRYPT = 0
 
 
-class des():
+class Des:
     def __init__(self):
         self.password = None
         self.text = None
@@ -239,7 +239,7 @@ class des():
 if __name__ == '__main__':
     key = "secret_k"
     text = "Hello wo"
-    d = des()
+    d = Des()
     r = d.encrypt(key, text)
     r2 = d.decrypt(key, r)
     print("Ciphered: %r" % r)

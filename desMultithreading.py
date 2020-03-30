@@ -5,7 +5,6 @@
 from threading import *
 import time
 
-
 def sqr(n):
     for x in n:
         time.sleep(1)
