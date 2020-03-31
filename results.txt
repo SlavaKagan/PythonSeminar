@@ -1,1 +1,2 @@
-Parallel time result: 1585597980.175399 sec
+Sequential time encryption result: 0.005994 sec
+Sequential time decryption result: 0.005965 sec
