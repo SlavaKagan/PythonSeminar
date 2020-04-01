@@ -1,5 +1,8 @@
+Deciphered Text: Hello wo
 Ciphered: 'ßåýåÚ\x9f\\\x9d'
-Sequential time encryption result: 0.001011 sec
+Sequential time encryption result: 0.0020356178283691406 sec
 
-Deciphered: 'Hello wo'
-Sequential time decryption result: 0.001001 sec
+Ciphered: 'ßåýåÚ\x9f\\\x9d'
+Deciphered text: 'Hello wo'
+Sequential time decryption result: 0.001007 sec
+

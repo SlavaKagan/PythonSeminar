@@ -1,7 +1,7 @@
 # Viatcheslav Kagan 	311763213
 # Liad Khamdadash		313299877
 
-########## Exmaple of threads Python #############3
+# ######### Exmaple of threads Python #############
 from threading import *
 import time
 

@@ -366,24 +366,28 @@ if __name__ == '__main__':
 
     file = None
     if file is None:
-        file = open("results.txt", "w")
+        file = open("results.txt", "a+")
 
     start = time.time()
     encrypted_text = des.encrypt(text)        # encryption text with DES algorithm
     end = time.time()
     total_time = float(end)-float(start)
-    file.write("Ciphered: %r" % encrypted_text)
-    file.write("\nSequential time encryption result: %f sec" % total_time)
+    file.write(f"Deciphered Text: {text}")
+    file.write("\nCiphered: %r" % encrypted_text)
+    file.write(f"\nSequential time encryption result: {total_time} sec")
+    print(f"Text: {text}")
     print("Ciphered: %r" % encrypted_text)
-    print("Time: %s" % total_time)
+    print(f"Sequential time encryption result: {total_time}")
 
     start = time.time()
     decrypted_text = des.decrypt(encrypted_text)          # decryption ciphered text with DES algorithm
     end = time.time()
     total_time = float(end) - float(start)
-    file.write("\n\nDeciphered: %r" % decrypted_text)
-    file.write("\nSequential time decryption result: %f sec" % total_time)
-    print("\nDeciphered: ", decrypted_text)
-    print("Time: %s" % total_time)
+    file.write("\n\nCiphered: %r" % encrypted_text)
+    file.write("\nDeciphered text: %r" % decrypted_text)
+    file.write("\nSequential time decryption result: %f sec\n\n" % total_time)
+    print("\nCiphered: %r" % encrypted_text)
+    print(f"Deciphered: {decrypted_text}")
+    print(f'Sequential time decryption result: {total_time}')
 
     file.close()
