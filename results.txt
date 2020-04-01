@@ -1,2 +1,5 @@
-Sequential time encryption result: 0.005994 sec
-Sequential time decryption result: 0.005965 sec
+Ciphered: 'ßåýåÚ\x9f\\\x9d'
+Sequential time encryption result: 0.001011 sec
+
+Deciphered: 'Hello wo'
+Sequential time decryption result: 0.001001 sec

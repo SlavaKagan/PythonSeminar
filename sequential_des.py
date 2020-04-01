@@ -381,16 +381,20 @@ if __name__ == '__main__':
     # "w" - Write - will overwrite any existing content
     # time() returns the time as a floating point number expressed in seconds since the epoch, in UTC
 
-    key = "secret_k"
+    key = "secret_k"            # 56 bits
     text = "Hello wo"
     d = Des()
 
-    file = open("results.txt", "w+")
+    file = None
+    if file is None:
+        file = open("results.txt", "w")
+
     start = time.time()
     r = d.encrypt(key, text)        # encryption text with DES algorithm
     end = time.time()
     total_time = float(end)-float(start)
-    file.write('Sequential time encryption result: %f sec' % total_time)
+    file.write("Ciphered: %r" % r)
+    file.write("\nSequential time encryption result: %f sec" % total_time)
     print("Ciphered: %r" % r)
     print("Time: %s" % total_time)
 
@@ -398,7 +402,8 @@ if __name__ == '__main__':
     r2 = d.decrypt(key, r)          # decryption ciphered text with DES algorithm
     end = time.time()
     total_time = float(end) - float(start)
-    file.write('\nSequential time decryption result: %f sec' % total_time)
+    file.write("\n\nDeciphered: %r" % r2)
+    file.write("\nSequential time decryption result: %f sec" % total_time)
     print("\nDeciphered: ", r2)
     print("Time: %s" % total_time)
 
