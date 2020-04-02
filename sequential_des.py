@@ -3,7 +3,6 @@
 
 from typing import Tuple, List, Iterable
 from enum import Enum
-import time
 
 
 class Cryptography(Enum):
@@ -21,14 +20,19 @@ class Des:
 
         self._keys = self.generate_keys(des_key)  # Generate all the keys
 
-    def encrypt(self, plaintext: str, padding=False) -> str:            # Encrypting
-        return self.run(plaintext, Cryptography.ENCRYPT, padding)
+    def encrypt(self, plaintext: str) -> str:            # Encrypting
+        return self.run(plaintext, Cryptography.ENCRYPT)
 
-    def decrypt(self, ciphertext: str, padding=False) -> str:           # Decrypting
-        return self.run(ciphertext, Cryptography.DECRYPT, padding)
+    def decrypt(self, ciphertext: str) -> str:           # Decrypting
+        return self.run(ciphertext, Cryptography.DECRYPT)
 
-    def run(self, des_text: str, action=Cryptography.ENCRYPT, padding=False) -> str:
-        if padding and action == Cryptography.ENCRYPT:
+    def run(self, text1: str, action: Cryptography) -> str:
+        chunks, chunk_size = len(text1), 8
+        return "".join([self.run_block(text1[i:i + chunk_size], action) for i in range(0, chunks, chunk_size)])
+
+    def run_block(self, des_text: str, action=Cryptography.ENCRYPT) -> str:
+
+        if action == Cryptography.ENCRYPT and len(des_text) != 8:
             des_text = self.add_padding(des_text)
         elif len(des_text) % 8 != 0:  # If not padding specified data size must be multiple of 8 bytes
             raise Exception("Data size should be multiple of 8")
@@ -41,8 +45,8 @@ class Des:
             left, right = self.n_split(block, 32)  # LEFT, RIGHT
             tmp = None
             for i in range(16):  # Do the 16 rounds
-                # Expand right to match Ki size (48bits)
-                d_e = self.permutation_expand(right, self.E_BIT_SELECTION_TABLE)
+                d_e = self.permutation_expand(right, self.E_BIT_SELECTION_TABLE)  # Expand right to match
+                # Ki size (48bits)
                 if action == Cryptography.ENCRYPT:
                     tmp = self.xor(self._keys[i], d_e)  # If encrypt use Ki
                 else:
@@ -55,7 +59,7 @@ class Des:
             result += self.permutation_expand(right + left, self.IP_1_TABLE)  # Do the last permutation
             # and append the result to result
         final_res = self.bit_array_to_string(result)
-        if padding and action == Cryptography.DECRYPT:
+        if action == Cryptography.DECRYPT and final_res[7] == '\0':
             return self.remove_padding(final_res)  # Remove the padding if decrypt and padding is true
         else:
             return final_res  # Return the final string of data ciphered/deciphered
@@ -69,6 +73,7 @@ class Des:
         :param des_key: string
         :return: list of keys after generation
         """
+
         keys = []
         des_key = cls.string_to_bit_array(des_key)
         des_key = cls.permutation_expand(des_key, cls.PC_1_TABLE)  # Apply the initial Permutation on the key
@@ -101,6 +106,7 @@ class Des:
         :param n: integer
         :return: a tuple after shifting
         """
+
         return left[n:] + left[:n], right[n:] + right[:n]
 
     @staticmethod
@@ -110,8 +116,9 @@ class Des:
         :param text1: string data
         :return: string after padding
         """
+
         pad_len = 8 - (len(text1) % 8)
-        return str.join(pad_len * chr(pad_len))
+        return text1 + (pad_len * '\0')
 
     @staticmethod
     def remove_padding(data: str) -> str:
@@ -120,8 +127,8 @@ class Des:
         :param data: a string
         :return: string without padding
         """
-        pad_len = ord(data[-1])
-        return data[:-pad_len]
+
+        return data[:data.find('\0')]
 
     @staticmethod
     def bin_value(val: str, bits_size: int) -> str:
@@ -170,6 +177,7 @@ class Des:
         :param t2: object
         :return: list after implementing xor function
         """
+
         return [x ^ y for x, y in zip(t1, t2)]
 
     @staticmethod
@@ -196,6 +204,7 @@ class Des:
         :param d_e: bit array
         :return: list of bits
         """
+
         sub_blocks = Des.n_split(d_e, 6)  # Split bit array into sublist of 6 bits
         result = list()
         for i in range(len(sub_blocks)):  # For all the subLists
@@ -348,46 +357,3 @@ class Des:
                   35, 3, 43, 11, 51, 19, 59, 27,
                   34, 2, 42, 10, 50, 18, 58, 26,
                   33, 1, 41, 9, 49, 17, 57, 25]
-
-
-# Execute the main method now that all the dependencies have been defined.
-# The if __name__ is so that pydoc works and we can still run on the command line.
-if __name__ == '__main__':
-
-    # open() function opens a file, and returns it as a file object
-    # float() method returns a floating point number from a number or a string
-    # print() function prints the specified message to the screen, or other standard output device
-    # "w" - Write - will overwrite any existing content
-    # time() returns the time as a floating point number expressed in seconds since the epoch, in UTC
-
-    key = "secret_k"            # 56 bits
-    text = "Hello wo"
-    des = Des(key)
-
-    file = None
-    if file is None:
-        file = open("results.txt", "a+")
-
-    start = time.time()
-    encrypted_text = des.encrypt(text)        # encryption text with DES algorithm
-    end = time.time()
-    total_time = float(end)-float(start)
-    file.write(f"Deciphered Text: {text}")
-    file.write("\nCiphered: %r" % encrypted_text)
-    file.write(f"\nSequential time encryption result: {total_time} sec")
-    print(f"Text: {text}")
-    print("Ciphered: %r" % encrypted_text)
-    print(f"Sequential time encryption result: {total_time}")
-
-    start = time.time()
-    decrypted_text = des.decrypt(encrypted_text)          # decryption ciphered text with DES algorithm
-    end = time.time()
-    total_time = float(end) - float(start)
-    file.write("\n\nCiphered: %r" % encrypted_text)
-    file.write("\nDeciphered text: %r" % decrypted_text)
-    file.write("\nSequential time decryption result: %f sec\n\n" % total_time)
-    print("\nCiphered: %r" % encrypted_text)
-    print(f"Deciphered: {decrypted_text}")
-    print(f'Sequential time decryption result: {total_time}')
-
-    file.close()
