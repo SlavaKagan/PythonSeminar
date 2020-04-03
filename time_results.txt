@@ -1,9 +1,14 @@
 ########### Difference Time ###############:
-Sequential time Encryption result: 10.172 sec
-Sequential time Decryption result: 10.463 sec
+Sequential time Encryption result: 17.064 sec
+Sequential time Decryption result: 19.331 sec
 
-Parallel time Encryption result: 14.286 sec
-Parallel time Decryption result: 13.995 sec
+Parallel time Encryption result: 15.708 sec
+Parallel time Decryption result: 14.99 sec
 
-Time difference Encryption: -4.114 sec
-Time difference Decryption: -3.532 sec
+Time difference Encryption: 1.356 sec
+Time difference Decryption: 4.341 sec
+############## Comparing Section ###########
+Are the Decrypted text in Sequential the same as the initial text? True
+Are the Decrypted text in Parallel the same as the initial text? False
+Are the Encrypted text in both ways the same? False
+Are the Decrypted text in both ways the same? False

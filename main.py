@@ -65,12 +65,16 @@ if __name__ == '__main__':
     difference_enc = round(total_time_enc_seq - total_time_enc_para, 3)
     difference_dec = round(total_time_dec_seq - total_time_dec_para, 3)
 
-    print(f"The Encrypted text in both ways are the same? {encrypted_text_seq == encrypted_text_para}")
-    print(f"The Decrypted text in both ways are the same? {decrypted_text_seq == decrypted_text_para}\n")
-
     print('############# Difference Time #########')
     print(f"Time difference Encryption: {difference_enc} sec")
-    print(f"Time difference Decryption: {difference_dec} sec")
+    print(f"Time difference Decryption: {difference_dec} sec\n")
+
+    print('############## Comparing Section ###########')
+    print(f"Are the Decrypted text in Sequential the same as the initial text? {decrypted_text_seq == text}")
+    print(f"Are the Decrypted text in Parallel the same as the initial text? {decrypted_text_para == text}")
+
+    print(f"Are the Encrypted text in both ways the same? {encrypted_text_seq == encrypted_text_para}")
+    print(f"Are the Decrypted text in both ways the same? {decrypted_text_seq == decrypted_text_para}")
 
     "##################### File Section #####################"
     with open("data_results.txt", "w") as file:
@@ -95,4 +99,11 @@ if __name__ == '__main__':
         file2.write(f"Parallel time Decryption result: {total_time_dec_para} sec\n\n")
 
         file2.write(f"Time difference Encryption: {difference_enc} sec\n")
-        file2.write(f"Time difference Decryption: {difference_dec} sec")
+        file2.write(f"Time difference Decryption: {difference_dec} sec\n\n")
+
+        file2.write('############## Comparing Section ###########\n')
+        file2.write(f"Are the Decrypted text in Sequential the same as the initial text? {decrypted_text_seq == text}\n")
+        file2.write(f"Are the Decrypted text in Parallel the same as the initial text? {decrypted_text_para == text}\n")
+
+        file2.write(f"Are the Encrypted text in both ways the same? {encrypted_text_seq == encrypted_text_para}\n")
+        file2.write(f"Are the Decrypted text in both ways the same? {decrypted_text_seq == decrypted_text_para}")
