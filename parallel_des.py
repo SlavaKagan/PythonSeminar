@@ -1,5 +1,8 @@
+###################################
+# Team Members:
 # Viatcheslav Kagan 	311763213
 # Liad Khamdadash		313299877
+###################################
 
 from typing import Tuple, List, Iterable
 from enum import Enum
