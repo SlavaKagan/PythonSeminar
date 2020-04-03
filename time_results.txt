@@ -1,0 +1,9 @@
+########### Difference Time ###############:
+Sequential time Encryption result: 10.172 sec
+Sequential time Decryption result: 10.463 sec
+
+Parallel time Encryption result: 14.286 sec
+Parallel time Decryption result: 13.995 sec
+
+Time difference Encryption: -4.114 sec
+Time difference Decryption: -3.532 sec
