@@ -6,7 +6,7 @@
 
 from typing import Tuple, List, Iterable
 from enum import Enum
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from multiprocessing.pool import ThreadPool
 
 
 class Cryptography(Enum):
@@ -24,27 +24,28 @@ class Des:
 
         self._keys = self.generate_keys(des_key)  # Generate all the keys
 
-    def encrypt(self, plaintext: str) -> str:
+    def encrypt(self, plaintext: str) -> str:               # Encrypting
         return self.run(plaintext, Cryptography.ENCRYPT)
 
-    def decrypt(self, ciphertext: str) -> str:
+    def decrypt(self, ciphertext: str) -> str:              # Decrypting
         return self.run(ciphertext, Cryptography.DECRYPT)
 
-    def run(self, text1: str, action: Cryptography) -> str:
+    def run(self, text1: str, action: Cryptography):
         chunks, chunk_size = len(text1), 8
-        with ThreadPoolExecutor() as executor:
-            results = [executor.submit(self.run_block, text1[i:i + chunk_size], action) for i in
-                       range(0, chunks, chunk_size)]
-            return "".join([r.result() for r in as_completed(results)])
+        str_list = [text1[i:i + chunk_size] for i in range(0, chunks, chunk_size)]
+        pool = ThreadPool()
+        results = pool.map(lambda s: self.run_block(s, action), str_list)
+        pool.close()
+        pool.join()
+        return "".join(results)
 
-    def run_block(self, des_text: str, action=Cryptography.ENCRYPT) -> str:
-
-        if action == Cryptography.ENCRYPT and len(des_text) != 8:
-            des_text = self.add_padding(des_text)
-        elif len(des_text) % 8 != 0:  # If not padding specified data size must be multiple of 8 bytes
+    def run_block(self, dec_text: str, action=Cryptography.ENCRYPT):
+        if action == Cryptography.ENCRYPT and len(dec_text) != 8:
+            dec_text = self.add_padding(dec_text)
+        elif len(dec_text) % 8 != 0:  # If not padding specified data size must be multiple of 8 bytes
             raise Exception("Data size should be multiple of 8")
 
-        text_blocks = self.n_split(des_text, 8)  # Split the text in blocks of 8 bytes so 64 bits
+        text_blocks = self.n_split(dec_text, 8)  # Split the text in blocks of 8 bytes so 64 bits
         result = list()
         for block in text_blocks:  # Loop over all the blocks of data
             block = self.string_to_bit_array(block)  # Convert the block in bit array
