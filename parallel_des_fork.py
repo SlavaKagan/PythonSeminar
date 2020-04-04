@@ -32,6 +32,7 @@ class Des:
         return self.run(ciphertext, Cryptography.DECRYPT)
 
     def run(self, text1: str, action: Cryptography):
+        # math.ceil() - function returns the smallest integral value greater than the number
         chunks, chunk_size, num_threads = len(text1), 8, math.ceil(len(text1) / 8)
         str_list = [text1[i:i + chunk_size] for i in range(0, chunks, chunk_size)]
         threads = []
@@ -40,6 +41,7 @@ class Des:
             threads.append(t)
             t.start()
             t.join()
+        # join() method takes all items in an iterable and joins them into one string
         return "".join(str_list)
 
     def run_block(self, text_list: List, index: int, action=Cryptography.ENCRYPT):
@@ -78,6 +80,8 @@ class Des:
 
     "##################### CLASS METHODS #####################"
 
+    # @class method - returns a class method for the given function
+    # methods that are bound to a class rather than its object.
     @classmethod
     def generate_keys(cls, des_key: str) -> List[list]:
         """
@@ -100,6 +104,8 @@ class Des:
 
     "##################### STATIC METHODS #####################"
 
+    # @staticmethod - returns a static method for a given function,
+    # methods that are bound to a class rather than its object.
     @staticmethod
     def permutation_expand(block, table: List) -> List[chr]:
         """
@@ -142,6 +148,7 @@ class Des:
         :return: string without padding
         """
 
+        # find() method finds the first occurrence of the specified value
         return data[:data.find('\0')]
 
     @staticmethod
@@ -188,6 +195,7 @@ class Des:
         :return: list after implementing xor function
         """
 
+        # The zip() function takes iterables (can be zero or more), aggregates them in a tuple, and return it
         return [x ^ y for x, y in zip(t1, t2)]
 
     @staticmethod

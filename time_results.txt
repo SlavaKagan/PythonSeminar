@@ -1,16 +1,16 @@
 ########### Difference Time ###############:
-Sequential time Encryption result: 21.653 sec
-Sequential time Decryption result: 23.494 sec
+Sequential time Encryption result: 11.688 sec
+Sequential time Decryption result: 11.262 sec
 
-Parallel time Encryption fork way result: 27.379 sec
-Parallel time Encryption pool way result: 15.97 sec
-Parallel time Decryption fork way result: 23.096 sec
-Parallel time Decryption fork way result: 17.361 sec
+Parallel time Encryption fork way result: 19.677 sec
+Parallel time Encryption pool way result: 13.097 sec
+Parallel time Decryption fork way result: 18.571 sec
+Parallel time Decryption fork way result: 11.723 sec
 
-Time difference Encryption fork way: -5.726 sec
-Time difference Encryption pool way: 5.683 sec
-Time difference Decryption fork way: 0.398 sec
-Time difference Decryption pool way: 6.133 sec
+Time difference Encryption fork way: -7.989 sec
+Time difference Encryption pool way: -1.409 sec
+Time difference Decryption fork way: -7.309 sec
+Time difference Decryption pool way: -0.461 sec
 
 ############## Comparing Section ###########
 Are the Decrypted text in Sequential the same as the initial text? True
