@@ -4,6 +4,9 @@
 # Liad Khamdadash		313299877
 ###################################
 
+# This class execute Data Encryption standard algorithm while using parallel implementation with thread fork
+# Encryption of a long text (famous story) and after that decryption to the initial text
+
 from typing import Tuple, List, Iterable
 from enum import Enum
 import math

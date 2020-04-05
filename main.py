@@ -4,6 +4,9 @@
 # Liad Khamdadash		313299877
 ###################################
 
+# The system executes Data Encryption standard algorithm in parallel and sequential approaches
+# Encryption of a long text (famous story) and after that decryption to the initial text
+
 from textToEnc import text
 import time
 from sequential_des import Des as Sequential_Des
