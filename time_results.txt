@@ -5,7 +5,7 @@ Sequential time Decryption result: 11.262 sec
 Parallel time Encryption fork way result: 19.677 sec
 Parallel time Encryption pool way result: 13.097 sec
 Parallel time Decryption fork way result: 18.571 sec
-Parallel time Decryption fork way result: 11.723 sec
+Parallel time Decryption pool way result: 11.723 sec
 
 Time difference Encryption fork way: -7.989 sec
 Time difference Encryption pool way: -1.409 sec

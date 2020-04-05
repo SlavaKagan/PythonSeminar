@@ -138,7 +138,7 @@ if __name__ == '__main__':
         file_time.write(f"Parallel time Encryption fork way result: {total_time_enc_para_fork} sec\n")
         file_time.write(f"Parallel time Encryption pool way result: {total_time_enc_para_pool} sec\n")
         file_time.write(f"Parallel time Decryption fork way result: {total_time_dec_para_fork} sec\n")
-        file_time.write(f"Parallel time Decryption fork way result: {total_time_dec_para_pool} sec\n\n")
+        file_time.write(f"Parallel time Decryption pool way result: {total_time_dec_para_pool} sec\n\n")
 
         file_time.write(f"Time difference Encryption fork way: {difference_enc_fork} sec\n")
         file_time.write(f"Time difference Encryption pool way: {difference_enc_pool} sec\n")
