@@ -52,6 +52,8 @@ class Des:
                     t = threading.Thread(target=self.run_block, args=(str_list, times, action,))
                     t.start()
                     times += 1
+            for t in threads:
+                t.join()
         # join() method takes all items in an iterable and joins them into one string
         return "".join(str_list)
 

@@ -55,7 +55,7 @@ if __name__ == '__main__':
     print('Please Wait...')
 
     headers = ['Number of threads', 'fork join run time', 'Data the same as in sequential?']
-    with open("Text Files/encryption_fork_file.txt", "w") as file_encryption:
+    with open("Results text files/encryption_fork_file.txt", "w") as file_encryption:
         file_encryption.write("########### Encryption Results ###############:\n")
         file_encryption.write(''.join(column.rjust(10) for column in headers))
         file_encryption.write("\n")
@@ -69,7 +69,7 @@ if __name__ == '__main__':
             file_encryption.write("\n")
         file_encryption.write(f"Run time without multi threading:\t{total_time_enc_seq}\n")
 
-    with open("Text Files/decryption_fork_file.txt", "w") as file_decryption:
+    with open("Results text files/decryption_fork_file.txt", "w") as file_decryption:
         file_decryption.write("########### Decryption Results ###############:\n")
         file_decryption.write(''.join(column.rjust(10) for column in headers))
         file_decryption.write("\n")
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     print(f'Parallel time Decryption pool way result: {total_time_dec_para_pool} sec\n')
 
     "##################### File Data Section #####################"
-    with open("Text Files/data_results_fork.txt", "w") as file_fork:
+    with open("Results text files/data_results_fork.txt", "w") as file_fork:
         file_fork.write("#### Results for Data Encryption Standard Algorithm ####\n\n")
         file_fork.write(f"The secret key: {key}\n\n")
 
@@ -121,7 +121,7 @@ if __name__ == '__main__':
         file_fork.write(f"Encryption-Ciphered: \n {encrypted_text_para_fork}\n\n")
         file_fork.write(f"Decryption-Deciphered text:\n {decrypted_text_para_fork}")
 
-    with open("Text Files/data_results_pool.txt", "w") as file_pool:
+    with open("Results text files/data_results_pool.txt", "w") as file_pool:
         file_pool.write("#### Results for Data Encryption Standard Algorithm ####\n\n")
         file_pool.write(f"The secret key: {key}\n\n")
 

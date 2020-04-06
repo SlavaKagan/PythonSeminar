@@ -1,0 +1,18 @@
+########### Encryption Results ###############:
+Number of threadsfork join run timeData the same as in sequential?
+2		14.999		True
+3		16.092		True
+4		16.5		True
+5		15.656		True
+6		16.355		True
+7		16.79		True
+8		15.968		True
+9		15.999		True
+10		15.152		True
+11		16.615		True
+12		15.184		True
+13		15.777		True
+14		15.348		True
+15		16.021		True
+16		15.445		True
+Run time without multi threading:	9.823
