@@ -20,30 +20,38 @@ class Cryptography(Enum):
 
 class Des:
 
-    def __init__(self, des_key: str):
+    def __init__(self, des_key: str, num_of_threads: int):
         if len(des_key) < 8:
             raise Exception("Key Should be 8 bytes long")
         elif len(des_key) > 8:
             des_key = des_key[:8]  # If key size is above 8bytes, cut to be 8bytes long
 
         self._keys = self.generate_keys(des_key)  # Generate all the keys
+        self.num_of_threads = num_of_threads
 
-    def encrypt(self, plaintext: str) -> str:               # Encrypting
-        return self.run(plaintext, Cryptography.ENCRYPT)
+    def encrypt(self, plaintext: str, num_of_threads: int) -> str:               # Encrypting
+        return self.run(plaintext, Cryptography.ENCRYPT, num_of_threads)
 
-    def decrypt(self, ciphertext: str) -> str:              # Decrypting
-        return self.run(ciphertext, Cryptography.DECRYPT)
+    def decrypt(self, ciphertext: str, num_of_threads: int) -> str:              # Decrypting
+        return self.run(ciphertext, Cryptography.DECRYPT, num_of_threads)
 
-    def run(self, text1: str, action: Cryptography):
+    def run(self, text1: str, action: Cryptography, num_of_threads: int):
         # math.ceil() - function returns the smallest integral value greater than the number
-        chunks, chunk_size, num_threads = len(text1), 8, math.ceil(len(text1) / 8)
+        chunks, chunk_size, num_of_times = len(text1), 8, math.ceil(len(text1) / 8)
         str_list = [text1[i:i + chunk_size] for i in range(0, chunks, chunk_size)]
         threads = []
-        for i in range(num_threads):
+        times = min(num_of_threads, num_of_times)
+        for i in range(times):
             t = threading.Thread(target=self.run_block, args=(str_list, i, action,))
             threads.append(t)
             t.start()
-            t.join()
+
+        while times < num_of_times:
+            for t in threads:
+                if not t.is_alive() and times < num_of_times:
+                    t = threading.Thread(target=self.run_block, args=(str_list, times, action,))
+                    t.start()
+                    times += 1
         # join() method takes all items in an iterable and joins them into one string
         return "".join(str_list)
 
