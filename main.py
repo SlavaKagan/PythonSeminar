@@ -120,7 +120,7 @@ if __name__ == '__main__':
     print("\n--- Program finished running, now you can go to results in txt files ---")
 
     "##################### File Data Section #####################"
-    with open("Results text files/data_results_fork.txt", "w") as file_fork:
+    with open("Results text files/data_results_fork.txt", "w", encoding="utf-8") as file_fork:
         file_fork.write("#### Results for Data Encryption Standard Algorithm ####\n\n")
         file_fork.write(f"The secret key: {key}\n\n")
 
@@ -134,7 +134,7 @@ if __name__ == '__main__':
         file_fork.write(f"Encryption-Ciphered: \n {encrypted_text_para_fork}\n\n")
         file_fork.write(f"Decryption-Deciphered text:\n {decrypted_text_para_fork}")
 
-    with open("Results text files/data_results_pool.txt", "w") as file_pool:
+    with open("Results text files/data_results_pool.txt", "w", encoding="utf-8") as file_pool:
         file_pool.write("#### Results for Data Encryption Standard Algorithm ####\n\n")
         file_pool.write(f"The secret key: {key}\n\n")
 
