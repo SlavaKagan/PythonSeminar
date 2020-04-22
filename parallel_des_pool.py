@@ -40,6 +40,10 @@ class Cryptography(Enum):
 class Des:
 
     def __init__(self, des_key: str):
+        """
+        :param des_key: string
+        """
+
         if len(des_key) < 8:
             raise Exception("Key Should be 8 bytes long")
         elif len(des_key) > 8:
@@ -48,17 +52,41 @@ class Des:
         self._keys = self.generate_keys(des_key)  # Generate all the keys
 
     def encrypt(self, plaintext: str) -> str:               # Encrypting
+        """
+        Encryption of a given text
+        :param plaintext: string
+        :return: return the cipher text
+        """
+
         return self.run(plaintext, Cryptography.ENCRYPT)
 
     def decrypt(self, ciphertext: str) -> str:              # Decrypting
+        """
+        Decryption of a given ciphertext
+        :param ciphertext: string
+        return: return the given story text
+        """
+
         return self.run(ciphertext, Cryptography.DECRYPT)
 
     def run(self, text1: str, action: Cryptography):
+        """
+        Run the algorithm with threads pool way
+        :param text1: string
+        :param action: Enum
+        """
+
         chunks, chunk_size = len(text1), 8
         return "".join(ThreadPool().map(lambda s: self.run_block(s, action),
                                         [text1[i:i + chunk_size] for i in range(0, chunks, 8)]))
 
     def run_block(self, dec_text: str, action=Cryptography.ENCRYPT):
+        """
+        Implement the algorithm
+        :param dec_text: string
+        :param action: Enum
+        """
+
         if action == Cryptography.ENCRYPT and len(dec_text) != 8:
             dec_text = self.add_padding(dec_text)
         elif len(dec_text) % 8 != 0:  # If not padding specified data size must be multiple of 8 bytes

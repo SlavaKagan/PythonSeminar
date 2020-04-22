@@ -42,6 +42,11 @@ class Cryptography(Enum):
 class Des:
 
     def __init__(self, des_key: str, num_of_threads: int):
+        """
+        :param des_key: string
+        :param num_of_threads: int
+        """
+
         if len(des_key) < 8:
             raise Exception("Key Should be 8 bytes long")
         elif len(des_key) > 8:
@@ -51,12 +56,33 @@ class Des:
         self.num_of_threads = num_of_threads
 
     def encrypt(self, plaintext: str, num_of_threads: int) -> str:               # Encrypting
+        """
+        Encryption of a given text
+        :param plaintext: string
+        :param num_of_threads: int
+        :return: return the cipher text
+        """
+
         return self.run(plaintext, Cryptography.ENCRYPT, num_of_threads)
 
     def decrypt(self, ciphertext: str, num_of_threads: int) -> str:              # Decrypting
+        """
+        Decryption of a given ciphertext
+        :param ciphertext: string
+        :param num_of_threads: int
+        return: return the given story text
+        """
+
         return self.run(ciphertext, Cryptography.DECRYPT, num_of_threads)
 
     def run(self, text1: str, action: Cryptography, num_of_threads: int):
+        """
+        Run the algorithm with threads fork way
+        :param text1: string
+        :param action: Enum
+        :param num_of_threads: int
+        """
+
         # math.ceil() - function returns the smallest integral value greater than the number
         chunks, chunk_size, num_of_times = len(text1), 8, math.ceil(len(text1) / 8)
         str_list = [text1[i:i + chunk_size] for i in range(0, chunks, chunk_size)]
@@ -78,6 +104,13 @@ class Des:
         return "".join(str_list)
 
     def run_block(self, text_list: List, index: int, action=Cryptography.ENCRYPT):
+        """
+        Implement the algorithm
+        :param text_list: List
+        :param index: int
+        :param action: Enum
+        """
+
         my_text = text_list[index]
         if action == Cryptography.ENCRYPT and len(my_text) != 8:
             my_text = self.add_padding(my_text)

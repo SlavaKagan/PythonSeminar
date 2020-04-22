@@ -39,6 +39,10 @@ class Cryptography(Enum):
 class Des:
 
     def __init__(self, des_key: str):
+        """
+        :param des_key: string
+        """
+
         if len(des_key) < 8:
             raise Exception("Key Should be 8 bytes long")
         elif len(des_key) > 8:
@@ -47,16 +51,41 @@ class Des:
         self._keys = self.generate_keys(des_key)  # Generate all the keys
 
     def encrypt(self, plaintext: str) -> str:            # Encrypting
+        """
+        Encryption of a given text
+        :param plaintext: string
+        :return: return the cipher text
+        """
+
         return self.run(plaintext, Cryptography.ENCRYPT)
 
     def decrypt(self, ciphertext: str) -> str:           # Decrypting
+        """
+        Decryption of a given ciphertext
+        :param ciphertext: string
+        return: return the given story text
+        """
+
         return self.run(ciphertext, Cryptography.DECRYPT)
 
     def run(self, text1: str, action: Cryptography) -> str:
+        """
+        Run the algorithm sequential way
+        :param text1: string
+        :param action: Enum
+        return: string
+        """
+
         chunks, chunk_size = len(text1), 8
         return "".join([self.run_block(text1[i:i + chunk_size], action) for i in range(0, chunks, chunk_size)])
 
     def run_block(self, des_text: str, action=Cryptography.ENCRYPT) -> str:
+        """
+        Implement the algorithm
+        :param des_text: string
+        :param action: Enum
+        return: String
+        """
 
         if action == Cryptography.ENCRYPT and len(des_text) != 8:
             des_text = self.add_padding(des_text)
