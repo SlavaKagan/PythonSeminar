@@ -2,21 +2,24 @@
 Note: Time results depends on the load on the computer.
  There are many other processes and so there may be many delays
 
+Number of processors in this computer: 8
+The results will be from 2 threads to 16 threads
+
 Number of threads		fork join run time		Data the same as in sequential?
-	2					12.56 sec				True
-	3					12.443 sec				True
-	4					12.917 sec				True
-	5					12.812 sec				True
-	6					12.712 sec				True
-	7					13.038 sec				True
-	8					13.061 sec				True
-	9					12.639 sec				True
-	10					12.642 sec				True
-	11					13.063 sec				True
-	12					12.663 sec				True
-	13					12.633 sec				True
-	14					12.658 sec				True
-	15					12.839 sec				True
-	16					12.745 sec				True
-Runtime Parallel pool way result: 9.206 sec
-Run time without multi threading: 8.672 sec
+	2					12.303 sec				True
+	3					12.235 sec				True
+	4					12.306 sec				True
+	5					24.491 sec				True
+	6					25.219 sec				True
+	7					19.706 sec				True
+	8					16.111 sec				True
+	9					12.347 sec				True
+	10					12.300 sec				True
+	11					12.238 sec				True
+	12					12.306 sec				True
+	13					12.340 sec				True
+	14					12.276 sec				True
+	15					12.274 sec				True
+	16					12.251 sec				True
+Runtime Parallel pool way result: 8.578 sec
+Run time without multi threading: 8.335 sec
