@@ -61,7 +61,7 @@ if __name__ == '__main__':
           "There are many other processes and so there may be many delays")
     print('############## Fork Implementation ###########')
     print(f"Number of processors in this computer: {num_processors}\n"
-          f"So the results will be from 2 threads until {maximum_num_of_threads} threads\n")
+          f"So the results will be from 2 threads to {maximum_num_of_threads} threads\n")
     print('--- Encrypting ---\nPlease Wait...')
 
     with open("Results text files/encryption_time.txt", "w") as file_encryption:
@@ -69,7 +69,7 @@ if __name__ == '__main__':
         file_encryption.write("Note: Time results depends on the load on the computer.\n "
                               "There are many other processes and so there may be many delays\n\n")
         file_encryption.write(f"Number of processors in this computer: {num_processors}\n"
-              f"The results will be from 2 threads until {maximum_num_of_threads} threads\n")
+              f"The results will be from 2 threads to {maximum_num_of_threads} threads\n\n")
         file_encryption.write('\t\t'.join(map(str, headers)))
         file_encryption.write("\n")
         for num_threads in range(2, maximum_num_of_threads + 1):
@@ -90,7 +90,7 @@ if __name__ == '__main__':
         file_decryption.write("Note: Time results depends on the load on the computer.\n "
                               "There are many other processes and so there may be many delays\n\n")
         file_decryption.write(f"Number of processors in this computer: {num_processors}\n"
-                              f"The results will be from 2 threads until {maximum_num_of_threads} threads\n")
+                              f"The results will be from 2 threads to {maximum_num_of_threads} threads\n\n")
         file_decryption.write('\t\t'.join(map(str, headers)))
         file_decryption.write("\n")
         for num_threads in range(2, maximum_num_of_threads + 1):
