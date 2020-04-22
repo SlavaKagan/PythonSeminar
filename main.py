@@ -7,20 +7,24 @@
 # The system executes Data Encryption standard algorithm in parallel and sequential approaches
 # Encryption of a long text (famous story) and after that decryption to the initial text
 
+#####################
+# General python functions we used in this file:
+# open() function opens a file, and returns it as a file object.
+# float() method returns a floating point number from a number or a string.
+# round() function returns a floating-point number rounded to the specified number of decimals.
+# print() function prints the specified message to the screen, or other standard output device.
+# "w" - Write - will overwrite any existing content.
+# time() returns the time as a floating point number expressed in seconds since the epoch, in UTC.
+# range() function returns a sequence of numbers, starting from 0 by default, and increments by 1.
+# map() function applies a function to each item of an iterable (list, tuple...) and returns a list of the results.
+#####################
+
 from StoryForEncrypt.textToEnc import text
 import time
 from sequential_des import Des as Sequential_Des
 from parallel_des_fork import Des as Parallel_Des_Fork
 from parallel_des_pool import Des as Parallel_Des_Pool
 import multiprocessing
-
-# open() function opens a file, and returns it as a file object
-# float() method returns a floating point number from a number or a string
-# round() function returns a floating-point number rounded to the specified number of decimals
-# print() function prints the specified message to the screen, or other standard output device
-# "w" - Write - will overwrite any existing content
-# time() returns the time as a floating point number expressed in seconds since the epoch, in UTC
-
 
 # Execute the main method now that all the dependencies have been defined.
 # The if __name__ is so that pydoc works and we can still run on the command line.
@@ -56,12 +60,16 @@ if __name__ == '__main__':
     print("Note: Time results depends on the load on the computer.\n "
           "There are many other processes and so there may be many delays")
     print('############## Fork Implementation ###########')
+    print(f"Number of processors in this computer: {num_processors}\n"
+          f"So the results will be from 2 threads until {maximum_num_of_threads} threads\n")
     print('--- Encrypting ---\nPlease Wait...')
 
     with open("Results text files/encryption_time.txt", "w") as file_encryption:
         file_encryption.write("########### Fork Encryption Time Results ###############:\n")
         file_encryption.write("Note: Time results depends on the load on the computer.\n "
                               "There are many other processes and so there may be many delays\n\n")
+        file_encryption.write(f"Number of processors in this computer: {num_processors}\n"
+              f"The results will be from 2 threads until {maximum_num_of_threads} threads\n")
         file_encryption.write('\t\t'.join(map(str, headers)))
         file_encryption.write("\n")
         for num_threads in range(2, maximum_num_of_threads + 1):
@@ -81,6 +89,8 @@ if __name__ == '__main__':
         file_decryption.write("########### Fork Decryption Time Results ###############:\n")
         file_decryption.write("Note: Time results depends on the load on the computer.\n "
                               "There are many other processes and so there may be many delays\n\n")
+        file_decryption.write(f"Number of processors in this computer: {num_processors}\n"
+                              f"The results will be from 2 threads until {maximum_num_of_threads} threads\n")
         file_decryption.write('\t\t'.join(map(str, headers)))
         file_decryption.write("\n")
         for num_threads in range(2, maximum_num_of_threads + 1):

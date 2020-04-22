@@ -7,6 +7,25 @@
 # This class execute Data Encryption standard algorithm while using parallel implementation with thread pool
 # Encryption of a long text (famous story) and after that decryption to the initial text
 
+#####################
+# General python functions we used in this file:
+# int() method returns an integer object from any number or string
+# chr() method returns a character (a string) from an integer (represents unicode code point of the character).
+# str() function returns the string version of the given object.
+# range() function returns a sequence of numbers, starting from 0 by default, and increments by 1
+# (by default), and ends at a specified number.
+# len() function returns the number of items (length) in an object.
+# list() constructor returns a list in Python
+# zip() function takes iterables (can be zero or more), aggregates them in a tuple, and return it
+# ord() function returns an integer representing the Unicode character.
+# bin() method converts and returns the binary equivalent string of a given integer.
+# isinstance() function checks if the object (first argument) is an instance or subclass
+# of class info class (second argument).
+# find() method finds the first occurrence of the specified value.
+# join() method takes all items in an iterable and joins them into one string.
+# raise Exception() allows to force a specified exception to occur.
+#####################
+
 from typing import Tuple, List, Iterable
 from enum import Enum
 from multiprocessing.pool import ThreadPool
@@ -36,7 +55,6 @@ class Des:
 
     def run(self, text1: str, action: Cryptography):
         chunks, chunk_size = len(text1), 8
-        # join() method takes all items in an iterable and joins them into one string
         return "".join(ThreadPool().map(lambda s: self.run_block(s, action),
                                         [text1[i:i + chunk_size] for i in range(0, chunks, 8)]))
 
@@ -74,9 +92,8 @@ class Des:
             return final_res  # Return the final string of data ciphered/deciphered
 
     "##################### CLASS METHODS #####################"
-
-    # @class method - returns a class method for the given function
-    # methods that are bound to a class rather than its object.
+    # @class method - returns a class method for the given function methods
+    # that are bound to a class rather than its object.
     @classmethod
     def generate_keys(cls, des_key: str) -> List[list]:
         """
@@ -98,9 +115,8 @@ class Des:
         return keys
 
     "##################### STATIC METHODS #####################"
-
-    # @staticmethod - returns a static method for a given function
-    # methods that are bound to a class rather than its object.
+    # @staticmethod - returns a static method for a given function methods
+    # that are bound to a class rather than its object.
     @staticmethod
     def permutation_expand(block, table: List) -> List[chr]:
         """
@@ -143,7 +159,6 @@ class Des:
         :return: string without padding
         """
 
-        # find() method finds the first occurrence of the specified value
         return data[:data.find('\0')]
 
     @staticmethod
@@ -155,12 +170,6 @@ class Des:
         :raise exception: If no binary value is larger than the expected size
         :return: The binary value of a given string with padding '0'
         """
-
-        # ord() function returns an integer representing the Unicode character.
-        # bin() method converts and returns the binary equivalent string of a given integer.
-        # isinstance() function checks if the object (first argument) is an instance or subclass
-        # of class info class (second argument).
-        # len() function returns the number of items (length) in an object.
 
         bin_val = (bin(val) if isinstance(val, int) else bin(ord(val)))[2:]
 
@@ -190,7 +199,6 @@ class Des:
         :return: list after implementing xor function
         """
 
-        # The zip() function takes iterables (can be zero or more), aggregates them in a tuple, and return it
         return [x ^ y for x, y in zip(t1, t2)]
 
     @staticmethod
@@ -200,9 +208,6 @@ class Des:
         :param text_string: string that need to convert to list of bits
         :return: list of bits
         """
-
-        # list() constructor returns a list in Python
-        # int() method returns an integer object from any number or string
 
         array = list()
         for char in text_string:
@@ -236,10 +241,6 @@ class Des:
         :param array: Iterable, list of bit
         :return: string from bit list
         """
-
-        # int() method returns an integer object from any number or string
-        # chr() method returns a character (a string) from an integer (represents unicode code point of the character)
-        # str() function returns the string version of the given object
 
         res = ''.join(
             [chr(int(y, 2)) for y in [''.join([str(x) for x in _bytes]) for _bytes in Des.n_split(array, 8)]])
