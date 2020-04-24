@@ -19,13 +19,14 @@ PC_1_TABLE = [57, 49, 41, 33, 25, 17, 9,
               21, 13, 5, 28, 20, 12, 4]
 
 # Matrix that determine the shift for each round of keys
-# To do a left shift, move each bit one place to the left, except for the first bit,
-# which is cycled to the end of the block.
+# To do a left shift, move each bit one place to the left,
+# except for the first bit, which is cycled to the end of the block.
 SHIFT_ARRAY = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1]
 
 # Permutation applied on shifted key to get Ki+1
-# We now form the keys Kn, for 1<=n<=16, by applying the following permutation table
-# to each of the concatenated pairs CnDn. Each pair has 56 bits, but PC-2 only uses 48 of these.
+# We now form the keys Kn, for 1<=n<=16, by applying the following
+# permutation table to each of the concatenated pairs CnDn.
+# Each pair has 56 bits, but PC-2 only uses 48 of these.
 PC_2_TABLE = [14, 17, 11, 24, 1, 5, 3, 28,
               15, 6, 21, 10, 23, 19, 12, 4,
               26, 8, 16, 7, 27, 20, 13, 2,
@@ -43,9 +44,10 @@ IP_TABLE = [58, 50, 42, 34, 26, 18, 10, 2,
             61, 53, 45, 37, 29, 21, 13, 5,
             63, 55, 47, 39, 31, 23, 15, 7]
 
-# E- BIT-SELECTION TABLE Expand matrix to get a 48bits matrix of data to apply the xor with Ki
-# Let E be such that the 48 bits of its output, written as 8 blocks of 6 bits each,
-# are obtained by selecting the bits in its inputs in order according to the following table:
+# E- BIT-SELECTION TABLE Expand matrix to get a 48bits matrix of data
+# to apply the xor with Ki Let E be such that the 48 bits of its output,
+# written as 8 blocks of 6 bits each, are obtained by selecting the bits
+# in its inputs in order according to the following table:
 E_BIT_SELECTION_TABLE = [32, 1, 2, 3, 4, 5,
                          4, 5, 6, 7, 8, 9,
                          8, 9, 10, 11, 12, 13,
@@ -116,7 +118,8 @@ S_BOX_TABLES = [
 ]
 
 # Permutation made after each S_Box substitution for each round
-# P yields a 32-bit output from a 32-bit input by permuting the bits of the input block.
+# P yields a 32-bit output from a 32-bit input by permuting the
+# bits of the input block.
 P_TABLE = [16, 7, 20, 21, 29, 12, 28, 17,
            1, 15, 23, 26, 5, 18, 31, 10,
            2, 8, 24, 14, 32, 27, 3, 9,
