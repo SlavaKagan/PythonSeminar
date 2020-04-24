@@ -1,11 +1,11 @@
-########### Fork Encryption Time Results ###############:
+########### Encryption Time Results ###############
 Note: Time results depends on the load on the computer.
  There are many other processes and so there may be many delays
 
 Number of processors in this computer: 8
 The results will be from 2 threads to 16 threads
 
-Number of threads		fork join run time		Data the same as in sequential?
+Number of threads		Fork join run time		Data the same as in sequential?
 	2					12.358 sec				True
 	3					12.304 sec				True
 	4					12.303 sec				True
@@ -21,5 +21,5 @@ Number of threads		fork join run time		Data the same as in sequential?
 	14					12.229 sec				True
 	15					12.245 sec				True
 	16					12.312 sec				True
-Runtime Parallel pool way result: 8.742 sec
-Run time without multi threading: 8.323 sec
+Runtime Parallel Thread Pool result: 8.742 sec
+Run time without multithreading: 8.323 sec
