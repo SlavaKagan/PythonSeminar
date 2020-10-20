@@ -1,7 +1,7 @@
 ###################################
-# Team Members:
-# Viatcheslav Kagan 	311763213
-# Liad Khamdadash		313299877
+# Authors:
+# Slava Kagan
+# Liad Khamdadash
 ###################################
 
 # This class execute data encryption standard algorithm while using parallel implementation with thread fork
