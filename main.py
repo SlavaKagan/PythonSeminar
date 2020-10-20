@@ -1,7 +1,7 @@
 ###################################
-# Team Members:
-# Viatcheslav Kagan 	311763213
-# Liad Khamdadash		313299877
+# Authors:
+# Slava Kagan
+# Liad Khamdadash
 ###################################
 
 # The system executes Data Encryption standard algorithm in parallel and sequential approaches
