@@ -1,7 +1,7 @@
 ###################################
-# Team Members:
-# Viatcheslav Kagan 	311763213
-# Liad Khamdadash		313299877
+# Authors:
+# Slava Kagan
+# Liad Khamdadash
 ###################################
 
 # Different tables for algorithm implementation
