@@ -1,7 +1,7 @@
 ###################################
-# Team Members:
-# Viatcheslav Kagan 	311763213
-# Liad Khamdadash		313299877
+# Authors:
+# Viatcheslav Kagan
+# Liad Khamdadash
 ###################################
 
 # Text we used for encryption in order to implement our algorithm
